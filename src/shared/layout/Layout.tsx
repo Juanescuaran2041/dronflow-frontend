@@ -16,6 +16,7 @@ export function Layout() {
           {session?.role === 'ADMIN' && (
             <>
               <NavLink to="/alerts">Alertas</NavLink>
+              <NavLink to="/maintenance-recommendations">Mantenimiento</NavLink>
               <NavLink to="/configuration">Configuración</NavLink>
               <NavLink to="/users/new">Registrar operador</NavLink>
             </>

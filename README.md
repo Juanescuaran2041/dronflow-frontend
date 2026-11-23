@@ -23,6 +23,14 @@ Las historias de usuario (HU-01…HU-23) viven en `dronflow-backend/docs/histori
 | — | Listado de drones (sin los dados de baja) | Todos |
 | HU-02 | Reportar avería (dron disponible → fuera de servicio) | Todos |
 | HU-03 | Dar de baja y reactivar dron | Todos |
+| HU-18 | Configuración: ponderación de asignación, umbrales de alerta y de mantenimiento | Solo `ADMIN` |
+| HU-04, HU-05 | Crear misión (el backend asigna el dron) | Todos |
+| HU-06, HU-07, HU-08 | Detalle de misión: autorizar despegue, pausar, reanudar, redirigir, abortar | Todos |
+| HU-17 | Historial de misiones con filtros | Solo `ADMIN` |
+| HU-11, HU-12 | Alertas por tipo/severidad y avisos en tiempo real | Solo `ADMIN` |
+| HU-13 | Historial de vuelos (página del dron) | Todos |
+| HU-15 | Registrar resultado de mantenimiento (página del dron) | Todos |
+| HU-14 | Recomendaciones de mantenimiento | Solo `ADMIN` |
 
 ## Stack
 
@@ -72,13 +80,20 @@ src/
 ├── shared/                 # Código transversal, sin lógica de negocio
 │   ├── api/http.ts         # Cliente HTTP: base /api/v1, token JWT, errores
 │   ├── auth/               # Sesión, contexto de autenticación, ruta protegida
+│   ├── ui/                 # useAction + NoticeView (mensajes de éxito/error)
 │   └── layout/Layout.tsx   # Barra superior + contenido
 └── modules/                # Un módulo por área funcional del backend
     ├── users/              # Login, registrar operador, cerrar sesión
     │   ├── types.ts        # Tipos que reflejan los DTOs del backend
     │   ├── api.ts          # Servicios de API del módulo
     │   └── *.tsx           # Pantallas y componentes
-    └── fleet/              # Registro, listado, avería, baja y reactivación de drones
+    ├── fleet/              # Registro, listado, avería, baja, reactivación y página del dron
+    ├── configuration/      # Reglas y umbrales (HU-18)
+    ├── mission/            # Misiones (HU-04 a HU-08, HU-17)
+    ├── alert/              # Alertas y stream SSE (HU-11, HU-12)
+    ├── flight-history/     # Historial de vuelos (HU-13)
+    ├── maintenance-record/ # Resultados de mantenimiento (HU-15)
+    └── maintenance-recommendation/ # Recomendaciones (HU-14)
 ```
 
 ### Capas
