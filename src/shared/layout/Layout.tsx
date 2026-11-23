@@ -11,7 +11,12 @@ export function Layout() {
         <strong>Dronflow</strong>
         <nav>
           <NavLink to="/drones" end>Drones</NavLink>
-          {session?.role === 'ADMIN' && <NavLink to="/users/new">Registrar operador</NavLink>}
+          {session?.role === 'ADMIN' && (
+            <>
+              <NavLink to="/configuration">Configuración</NavLink>
+              <NavLink to="/users/new">Registrar operador</NavLink>
+            </>
+          )}
         </nav>
         <span className="who">
           {session?.userName} ({session?.role === 'ADMIN' ? 'Administrador' : 'Operador'})
