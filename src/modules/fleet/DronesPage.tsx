@@ -83,7 +83,7 @@ export function DronesPage() {
             <tbody>
               {drones.map((drone) => (
                 <tr key={drone.code}>
-                  <td>{drone.code}</td>
+                  <td><Link to={`/drones/${encodeURIComponent(drone.code)}`}>{drone.code}</Link></td>
                   <td>{DRONE_TYPE_LABELS[drone.type as DroneType] ?? drone.type}</td>
                   <td><span className={`state state-${drone.state}`}>{DRONE_STATE_LABELS[drone.state]}</span></td>
                   <td>{drone.batteryLevelPercent}%</td>
