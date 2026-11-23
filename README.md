@@ -19,6 +19,10 @@ Las historias de usuario (HU-01…HU-23) viven en `dronflow-backend/docs/histori
 | HU-19 | Inicio de sesión | Todos |
 | HU-20 | Registrar operador | Solo `ADMIN` |
 | HU-23 | Cerrar sesión (botón en la barra superior) | Todos |
+| HU-01 | Registrar dron | Todos |
+| — | Listado de drones (sin los dados de baja) | Todos |
+| HU-02 | Reportar avería (dron disponible → fuera de servicio) | Todos |
+| HU-03 | Dar de baja y reactivar dron | Todos |
 
 ## Stack
 
@@ -74,7 +78,7 @@ src/
     │   ├── types.ts        # Tipos que reflejan los DTOs del backend
     │   ├── api.ts          # Servicios de API del módulo
     │   └── *.tsx           # Pantallas y componentes
-    └── fleet/              # Drones (siguiente entrega)
+    └── fleet/              # Registro, listado, avería, baja y reactivación de drones
 ```
 
 ### Capas
