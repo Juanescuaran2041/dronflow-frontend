@@ -64,3 +64,18 @@ button:disabled { opacity: 0.6; cursor: default; }
 .alert { margin: 0; padding: 0.6rem 0.8rem; border-radius: 6px; }
 .alert.error { color: var(--error); background: var(--error-bg); }
 .alert.success { color: var(--success); background: var(--success-bg); }
+
+.toolbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+a.button {
+  padding: 0.5rem 1rem; border-radius: 6px; background: var(--accent); color: #fff; text-decoration: none;
+}
+section > .alert { margin-bottom: 1rem; }
+.table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; }
+table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+th, td { padding: 0.6rem; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
+th { color: var(--muted); font-weight: 600; }
+td.actions { display: flex; gap: 0.4rem; }
+td.actions button { padding: 0.3rem 0.6rem; font-size: 0.85rem; }
+.state { padding: 0.15rem 0.5rem; border-radius: 999px; background: var(--bg); border: 1px solid var(--border); }
+.state-AVAILABLE { color: var(--success); }
+.state-OUT_OF_SERVICE { color: var(--error); }
