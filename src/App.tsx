@@ -6,6 +6,7 @@ import { LoginPage } from './modules/users/LoginPage'
 import { RegisterOperatorPage } from './modules/users/RegisterOperatorPage'
 import { DronesPage } from './modules/fleet/DronesPage'
 import { RegisterDronePage } from './modules/fleet/RegisterDronePage'
+import { DroneDetailPage } from './modules/fleet/DroneDetailPage'
 import { ConfigurationPage } from './modules/configuration/ConfigurationPage'
 import { CreateMissionPage } from './modules/mission/CreateMissionPage'
 import { MissionDetailPage } from './modules/mission/MissionDetailPage'
@@ -22,6 +23,7 @@ export default function App() {
             <Route index element={<Navigate to="/drones" replace />} />
             <Route path="drones" element={<DronesPage />} />
             <Route path="drones/new" element={<RegisterDronePage />} />
+            <Route path="drones/:code" element={<DroneDetailPage />} />
             <Route path="missions" element={<MissionsPage />} />
             <Route path="missions/new" element={<CreateMissionPage />} />
             <Route path="missions/:code" element={<MissionDetailPage />} />
