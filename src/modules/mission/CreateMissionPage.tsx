@@ -57,7 +57,7 @@ export function CreateMissionPage() {
       </div>
       <label>
         Carga útil requerida (kg)
-        <input type="number" min={0.01} step="any" required value={requiredPayload} onChange={(e) => setRequiredPayload(e.target.value)} />
+        <input type="number" min={0} step="any" required value={requiredPayload} onChange={(e) => setRequiredPayload(e.target.value)} />
       </label>
       <label>
         Autonomía mínima (minutos)
