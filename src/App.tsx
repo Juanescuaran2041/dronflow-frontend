@@ -7,6 +7,9 @@ import { RegisterOperatorPage } from './modules/users/RegisterOperatorPage'
 import { DronesPage } from './modules/fleet/DronesPage'
 import { RegisterDronePage } from './modules/fleet/RegisterDronePage'
 import { ConfigurationPage } from './modules/configuration/ConfigurationPage'
+import { CreateMissionPage } from './modules/mission/CreateMissionPage'
+import { MissionDetailPage } from './modules/mission/MissionDetailPage'
+import { MissionsPage } from './modules/mission/MissionsPage'
 
 export default function App() {
   return (
@@ -18,6 +21,9 @@ export default function App() {
             <Route index element={<Navigate to="/drones" replace />} />
             <Route path="drones" element={<DronesPage />} />
             <Route path="drones/new" element={<RegisterDronePage />} />
+            <Route path="missions" element={<MissionsPage />} />
+            <Route path="missions/new" element={<CreateMissionPage />} />
+            <Route path="missions/:code" element={<MissionDetailPage />} />
             <Route path="configuration" element={<RequireAuth roles={['ADMIN']}><ConfigurationPage /></RequireAuth>} />
             <Route path="users/new" element={<RequireAuth roles={['ADMIN']}><RegisterOperatorPage /></RequireAuth>} />
           </Route>
