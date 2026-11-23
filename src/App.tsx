@@ -12,6 +12,7 @@ import { CreateMissionPage } from './modules/mission/CreateMissionPage'
 import { MissionDetailPage } from './modules/mission/MissionDetailPage'
 import { MissionsPage } from './modules/mission/MissionsPage'
 import { AlertsPage } from './modules/alert/AlertsPage'
+import { RecommendationsPage } from './modules/maintenance-recommendation/RecommendationsPage'
 
 export default function App() {
   return (
@@ -28,6 +29,7 @@ export default function App() {
             <Route path="missions/new" element={<CreateMissionPage />} />
             <Route path="missions/:code" element={<MissionDetailPage />} />
             <Route path="alerts" element={<RequireAuth roles={['ADMIN']}><AlertsPage /></RequireAuth>} />
+            <Route path="maintenance-recommendations" element={<RequireAuth roles={['ADMIN']}><RecommendationsPage /></RequireAuth>} />
             <Route path="configuration" element={<RequireAuth roles={['ADMIN']}><ConfigurationPage /></RequireAuth>} />
             <Route path="users/new" element={<RequireAuth roles={['ADMIN']}><RegisterOperatorPage /></RequireAuth>} />
           </Route>
