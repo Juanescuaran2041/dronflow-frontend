@@ -10,6 +10,7 @@ export function Layout() {
       <header className="topbar">
         <strong>Dronflow</strong>
         <nav>
+          <NavLink to="/drones" end>Drones</NavLink>
           {session?.role === 'ADMIN' && <NavLink to="/users/new">Registrar operador</NavLink>}
         </nav>
         <span className="who">
