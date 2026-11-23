@@ -20,6 +20,7 @@ function actionsFor(mission: MissionResponse): MissionAction[] {
   switch (mission.state) {
     case 'PENDING':
       return mission.assignedDroneCode ? ['authorize-takeoff'] : []
+    case 'TAKEOFF': // no HTTP event moves it to IN_PROGRESS yet; the backend answers with its reason
     case 'IN_PROGRESS':
       return ['pause', 'abort']
     case 'PAUSED':
@@ -95,7 +96,7 @@ export function MissionDetailPage() {
         ))}
         <button className="secondary" disabled={busy} onClick={() => void load()}>Actualizar</button>
       </div>
-      {mission.state === 'IN_PROGRESS' && (
+      {(mission.state === 'IN_PROGRESS' || mission.state === 'TAKEOFF') && (
         <form className="card" onSubmit={handleRedirect}>
           <h2>Redirigir a un nuevo destino</h2>
           <LocationFields legend="Nuevo destino" value={destination} onChange={setDestination} />
