@@ -1,0 +1,25 @@
+import { NavLink, Outlet } from 'react-router'
+import { useAuth } from '../auth/AuthContext'
+import { LogoutButton } from '../../modules/users/LogoutButton'
+
+export function Layout() {
+  const { session } = useAuth()
+
+  return (
+    <>
+      <header className="topbar">
+        <strong>Dronflow</strong>
+        <nav>
+          {session?.role === 'ADMIN' && <NavLink to="/users/new">Registrar operador</NavLink>}
+        </nav>
+        <span className="who">
+          {session?.userName} ({session?.role === 'ADMIN' ? 'Administrador' : 'Operador'})
+        </span>
+        <LogoutButton />
+      </header>
+      <main>
+        <Outlet />
+      </main>
+    </>
+  )
+}
