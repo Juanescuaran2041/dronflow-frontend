@@ -11,6 +11,7 @@ export function Layout() {
         <strong>Dronflow</strong>
         <nav>
           <NavLink to="/drones" end>Drones</NavLink>
+          <NavLink to="/missions">Misiones</NavLink>
           {session?.role === 'ADMIN' && (
             <>
               <NavLink to="/configuration">Configuración</NavLink>
