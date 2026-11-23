@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from 'react-router'
 import { useAuth } from '../auth/AuthContext'
 import { LogoutButton } from '../../modules/users/LogoutButton'
+import { AlertNotifier } from '../../modules/alert/AlertNotifier'
 
 export function Layout() {
   const { session } = useAuth()
@@ -14,6 +15,7 @@ export function Layout() {
           <NavLink to="/missions">Misiones</NavLink>
           {session?.role === 'ADMIN' && (
             <>
+              <NavLink to="/alerts">Alertas</NavLink>
               <NavLink to="/configuration">Configuración</NavLink>
               <NavLink to="/users/new">Registrar operador</NavLink>
             </>
@@ -27,6 +29,7 @@ export function Layout() {
       <main>
         <Outlet />
       </main>
+      {session?.role === 'ADMIN' && <AlertNotifier />}
     </>
   )
 }
