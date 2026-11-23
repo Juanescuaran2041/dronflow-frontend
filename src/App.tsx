@@ -6,6 +6,7 @@ import { LoginPage } from './modules/users/LoginPage'
 import { RegisterOperatorPage } from './modules/users/RegisterOperatorPage'
 import { DronesPage } from './modules/fleet/DronesPage'
 import { RegisterDronePage } from './modules/fleet/RegisterDronePage'
+import { ConfigurationPage } from './modules/configuration/ConfigurationPage'
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
             <Route index element={<Navigate to="/drones" replace />} />
             <Route path="drones" element={<DronesPage />} />
             <Route path="drones/new" element={<RegisterDronePage />} />
+            <Route path="configuration" element={<RequireAuth roles={['ADMIN']}><ConfigurationPage /></RequireAuth>} />
             <Route path="users/new" element={<RequireAuth roles={['ADMIN']}><RegisterOperatorPage /></RequireAuth>} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
