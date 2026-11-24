@@ -61,9 +61,9 @@ export function DronesPage() {
       </div>
       {message && <p className={`alert ${message.ok ? 'success' : 'error'}`} role="alert">{message.text}</p>}
       {drones === null ? (
-        <p>Cargando…</p>
+        <p className="empty">Cargando…</p>
       ) : drones.length === 0 ? (
-        <p>No hay drones registrados.</p>
+        <p className="empty">No hay drones registrados.</p>
       ) : (
         <div className="table-wrap">
           <table>

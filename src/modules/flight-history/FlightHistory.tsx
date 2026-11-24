@@ -35,7 +35,7 @@ export function FlightHistory({ droneCode }: { droneCode: string }) {
                   {history.incidents.map((i) => (
                     <tr key={i.alertId}>
                       <td>{formatDate(i.moment)}</td>
-                      <td>{PRIORITY_LABELS[i.severity]}</td>
+                      <td><span className={`state severity-${i.severity}`}>{PRIORITY_LABELS[i.severity]}</span></td>
                       <td>{i.missionCode ?? '—'}</td>
                       <td>{i.alertId}</td>
                     </tr>

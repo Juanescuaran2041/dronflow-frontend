@@ -58,7 +58,7 @@ export function MaintenanceRecords({ droneCode, inMaintenance, onRecorded }: Pro
             <thead><tr><th>Fecha</th><th>Resultado</th></tr></thead>
             <tbody>
               {records.map((r) => (
-                <tr key={r.id}><td>{formatDate(r.date)}</td><td>{MAINTENANCE_RESULT_LABELS[r.result]}</td></tr>
+                <tr key={r.id}><td>{formatDate(r.date)}</td><td><span className={`state state-${r.result}`}>{MAINTENANCE_RESULT_LABELS[r.result]}</span></td></tr>
               ))}
             </tbody>
           </table>
