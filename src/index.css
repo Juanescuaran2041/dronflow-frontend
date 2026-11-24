@@ -70,7 +70,8 @@
       disabled:cursor-not-allowed disabled:opacity-45;
   }
 
-  fieldset { @apply flex flex-col gap-3 rounded-campo border border-linea bg-fondo/50 p-4; }
+  /* Los campos de un grupo se reparten en columnas si caben; en un panel angosto queda una sola. */
+  fieldset { @apply grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] items-start gap-3 rounded-campo border border-linea bg-fondo/50 p-4; }
   legend { @apply px-1.5 text-sm font-semibold text-tinta; }
 
   :focus-visible { @apply outline-2 outline-offset-2 outline-acento; }
@@ -122,6 +123,18 @@
   .card { @apply flex w-full max-w-md flex-col gap-4 p-6; }
   .card.wide { @apply max-w-3xl; }
   .auth-panel .card { @apply gap-5 shadow-[0_24px_60px_-24px_rgb(0_0_0/0.55)]; }
+  /* Un formulario que es toda la pantalla manda en ella: va centrado, no pegado a una esquina.
+     El centrado vertical es «safe»: si el formulario es más alto que la ventana, se apoya arriba
+     en vez de recortarse. */
+  main:has(> form.card) {
+    @apply grid justify-items-center;
+    align-content: safe center;
+  }
+  main > form.card { @apply mx-auto; }
+  /* El enlace que cuelga bajo el botón se alinea con el bloque, no queda colgando a la izquierda. */
+  form.card > a { @apply self-center; }
+  /* Un formulario dentro de una pantalla con mas contenido se alinea con ese contenido, no queda de isla. */
+  section > form.card { @apply max-w-none; }
   .auth-marca { @apply size-14 self-start mix-blend-multiply; }
 
   .grid { @apply grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] items-start gap-5; }
