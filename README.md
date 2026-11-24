@@ -12,17 +12,15 @@ Este repositorio contiene la interfaz web. El sistema completo se compone de:
 
 Las historias de usuario (HU-01…HU-23) viven en `dronflow-backend/docs/historias-usuario/`. El frontend solo implementa las funcionalidades descritas allí.
 
-## Credenciales de prueba
+## Usuario de prueba
 
-La aplicación desplegada está en <https://dronflow-frontend.vercel.app/>. Para revisarla sin registrarse:
+La aplicación desplegada está en <https://dronflow-frontend.vercel.app/>. Entra con esta cuenta para recorrerla:
 
 | Rol | Usuario | Contraseña |
 |-----|---------|------------|
 | Administrador | `admin` | `PENDIENTE` |
 
-El administrador ve todo: alertas en tiempo real, historial de misiones, configuración de reglas y umbrales, recomendaciones de mantenimiento y registro de usuarios. Desde ahí se puede crear un operador (HU-20) para probar la vista con permisos reducidos.
-
-Si corres el backend en tu máquina sin definir `ADMIN_USER` ni `ADMIN_PASSWORD`, al arrancar se crea el usuario `admin` con la contraseña por defecto de `application.properties`.
+Es la cuenta de administrador del sistema (HU-19), no una credencial de infraestructura. El administrador ve todo: alertas en tiempo real, historial de misiones, configuración de reglas y umbrales, recomendaciones de mantenimiento y registro de usuarios. Desde ahí se puede crear un operador (HU-20) para probar la vista con permisos reducidos.
 
 ## Funcionalidades implementadas
 
