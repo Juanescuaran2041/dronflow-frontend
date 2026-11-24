@@ -87,8 +87,8 @@ function MissionHistory() {
               {missions.map((m) => (
                 <tr key={m.code}>
                   <td><Link to={`/missions/${encodeURIComponent(m.code)}`}>{m.code}</Link></td>
-                  <td>{MISSION_STATE_LABELS[m.state]}</td>
-                  <td>{PRIORITY_LABELS[m.priority]}</td>
+                  <td><span className={`state state-${m.state}`}>{MISSION_STATE_LABELS[m.state]}</span></td>
+                  <td><span className={`state severity-${m.priority}`}>{PRIORITY_LABELS[m.priority]}</span></td>
                   <td>{m.assignedDroneCode ?? '—'}</td>
                   <td>{m.origin.name}</td>
                   <td>{m.destination.name}</td>

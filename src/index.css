@@ -1,97 +1,178 @@
 @import 'tailwindcss';
 
 /*
- * Dos superficies: «papel» claro para leer y «cabina» oscura para la navegación lateral.
- * Un acento (azul cielo). Superficies separadas por tono; sombra solo en lo que flota.
- * Botones en píldora, campos con radio 0.75rem, tarjetas 1.25rem.
+ * Dirección visual: consola de operaciones.
+ * Dos superficies: «cabina» (petróleo oscuro) para la navegación y el acceso, y
+ * «carta» (gris azulado de carta aeronáutica) para el área de trabajo.
+ * Un solo acento —magenta de carta VFR— reservado a acciones y enlaces.
+ * El estado se lee como un tablero de testigos: chip rectangular con luz de color.
+ * Jerarquía por radio (chip 4px, campo 8px, panel 12px) y por línea, no por sombra:
+ * solo lleva sombra lo que de verdad flota (los avisos de alerta y el acceso).
  */
 @theme {
-  --color-fondo: #eef1f5;
-  --color-papel: #ffffff;
-  --color-linea: #dde2ea;
-  --color-tinta: #121a26;
-  --color-tinta-2: #4f5b6b;
-  --color-acento: #1f5fd6;
-  --color-acento-vivo: #6fb2ff;
-  --color-cabina: #0f1724;
-  --color-cabina-2: #1a2638;
-  --color-error: #b42318;
-  --color-error-fondo: #fdecea;
-  --color-ok: #067647;
-  --color-ok-fondo: #e3f4ea;
-  --color-aviso: #b26b00;
-  --radius-campo: 0.75rem;
-  --radius-superficie: 1.25rem;
+  --font-sans: 'IBM Plex Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+
+  --color-fondo: #e7ecee;
+  --color-papel: #fbfcfc;
+  --color-linea: #ced8db;
+  --color-linea-fuerte: #9eafb4;
+  --color-tinta: #0f1d20;
+  --color-tinta-2: #516267;
+
+  --color-acento: #9c1f5c;
+  --color-acento-hover: #7b1748;
+  --color-acento-vivo: #ef86b1;
+
+  --color-cabina: #0c191c;
+  --color-cabina-2: #16282c;
+
+  /* Luces de tablero: verde operativo, ámbar de atención, rojo de falla, azul en vuelo. */
+  --color-ok: #0f5c3a;
+  --color-ok-fondo: #e0efe7;
+  --color-aviso: #7f5200;
+  --color-aviso-fondo: #faeedb;
+  --color-error: #a0251c;
+  --color-error-fondo: #fae6e4;
+  --color-vuelo: #17597f;
+  --color-vuelo-fondo: #e2eef5;
+
+  --radius-chip: 0.25rem;
+  --radius-campo: 0.5rem;
+  --radius-superficie: 0.75rem;
   --ease-suave: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @layer base {
-  html { @apply bg-fondo text-tinta antialiased; font-family: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif; }
+  html {
+    @apply bg-fondo font-sans text-tinta antialiased;
+  }
   body { @apply min-h-dvh; }
-  h1 { @apply text-2xl font-bold tracking-tight sm:text-3xl; }
-  h2 { @apply text-lg font-semibold tracking-tight; }
-  a { @apply text-acento underline-offset-4 hover:underline; }
+
+  h1 { @apply text-[1.6rem] leading-tight font-semibold tracking-[-0.02em] sm:text-[2rem]; }
+  h2 { @apply text-lg leading-snug font-semibold tracking-[-0.01em]; }
+
+  a { @apply text-acento underline-offset-4 hover:text-acento-hover hover:underline; }
+
   label { @apply flex flex-col gap-1.5 text-sm font-medium text-tinta-2; }
   input, select {
-    @apply min-h-11 rounded-campo border border-linea bg-fondo/60 px-3 text-base text-tinta transition-colors duration-200
-      focus:border-acento focus:bg-papel focus:outline-none focus:ring-4 focus:ring-acento/15;
+    @apply min-h-11 rounded-campo border border-linea bg-white px-3 text-base text-tinta
+      transition-[border-color,box-shadow] duration-200
+      focus:border-acento focus:outline-none focus:ring-3 focus:ring-acento/20;
   }
+  input::placeholder { @apply text-tinta-2/60; }
+  input[type='number'] { @apply font-mono tabular-nums; }
   input[type='checkbox'] { @apply min-h-0 size-4 accent-acento; }
+
   button {
-    @apply inline-flex min-h-10 cursor-pointer items-center justify-center gap-2 rounded-full bg-tinta px-5 text-sm font-semibold text-white
-      transition-[background-color,transform] duration-200 ease-suave hover:bg-acento enabled:active:scale-[0.97]
-      disabled:cursor-not-allowed disabled:opacity-50;
+    @apply inline-flex min-h-10 cursor-pointer items-center justify-center gap-2 rounded-campo bg-acento px-4 text-sm font-semibold text-white
+      transition-[background-color,transform] duration-150 ease-suave hover:bg-acento-hover enabled:active:scale-[0.98]
+      disabled:cursor-not-allowed disabled:opacity-45;
   }
-  fieldset { @apply flex flex-col gap-3 rounded-campo border border-linea p-4; }
-  legend { @apply px-1 text-sm font-semibold text-tinta-2; }
-  :focus-visible { @apply outline-3 outline-offset-2 outline-acento; }
+
+  fieldset { @apply flex flex-col gap-3 rounded-campo border border-linea bg-fondo/50 p-4; }
+  legend { @apply px-1.5 text-sm font-semibold text-tinta; }
+
+  :focus-visible { @apply outline-2 outline-offset-2 outline-acento; }
 }
 
 @layer components {
-  button.secondary { @apply border border-linea bg-transparent text-tinta hover:border-tinta hover:bg-tinta hover:text-white; }
+  button.secondary {
+    @apply border border-linea-fuerte bg-transparent text-tinta hover:border-tinta hover:bg-tinta hover:text-white;
+  }
   a.button {
-    @apply inline-flex min-h-10 items-center rounded-full bg-tinta px-5 text-sm font-semibold text-white no-underline
-      transition-colors duration-200 hover:bg-acento hover:no-underline;
+    @apply inline-flex min-h-10 items-center rounded-campo bg-acento px-4 text-sm font-semibold text-white no-underline
+      transition-colors duration-150 hover:bg-acento-hover hover:text-white hover:no-underline;
   }
 
-  main.center { @apply grid min-h-dvh place-items-center bg-cabina p-4; }
-  .card { @apply flex w-full max-w-md flex-col gap-4 rounded-superficie bg-papel p-6 shadow-sm ring-1 ring-linea; }
+  /* Acceso: la cabina con la retícula de una carta de navegación. */
+  main.center {
+    @apply grid min-h-dvh place-items-center bg-cabina p-4;
+    background-image:
+      repeating-linear-gradient(to right, rgb(255 255 255 / 0.05) 0 1px, transparent 1px 56px),
+      repeating-linear-gradient(to bottom, rgb(255 255 255 / 0.05) 0 1px, transparent 1px 56px),
+      radial-gradient(120% 90% at 50% 0%, #1b3238 0%, var(--color-cabina) 68%);
+  }
+
+  .card, .table-wrap, .inline {
+    @apply rounded-superficie border border-linea bg-papel;
+  }
+  .card { @apply flex w-full max-w-md flex-col gap-4 p-6; }
   .card.wide { @apply max-w-3xl; }
+  main.center .card { @apply gap-5 shadow-[0_24px_60px_-24px_rgb(0_0_0/0.55)]; }
+
   .grid { @apply grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] items-start gap-5; }
   .grid .card { @apply max-w-none; }
   .stack { @apply flex flex-col gap-5; }
-  .toolbar { @apply mb-6 flex flex-wrap items-end justify-between gap-4; }
+
+  /* Encabezado de pantalla: el título se apoya en una línea de base. */
+  .toolbar { @apply mb-6 flex flex-wrap items-end justify-between gap-4 border-b border-linea pb-4; }
+  section > h1 { @apply border-b border-linea pb-4; }
+  section:not(.stack) > h1 { @apply mb-6; }
+  .toolbar > h1 { @apply border-0 pb-0; }
   section > .alert { @apply mb-4; }
 
-  .alert { @apply m-0 rounded-campo px-4 py-3 text-sm font-medium; }
-  .alert.error { @apply bg-error-fondo text-error; }
-  .alert.success { @apply bg-ok-fondo text-ok; }
-  .empty { @apply text-tinta-2; }
+  .alert { @apply m-0 rounded-campo border-l-3 px-4 py-3 text-sm font-medium; }
+  .alert.error { @apply border-l-error bg-error-fondo text-error; }
+  .alert.success { @apply border-l-ok bg-ok-fondo text-ok; }
+
+  /* Vacío y carga: un panel en espera, no un párrafo suelto. */
+  .empty {
+    @apply m-0 rounded-superficie border border-dashed border-linea-fuerte/70 bg-papel/50 px-4 py-6 text-sm text-tinta-2;
+  }
 
   .actions { @apply flex flex-wrap items-center gap-2; }
-  .details { @apply m-0 grid grid-cols-[max-content_1fr] gap-x-6 gap-y-2 text-sm; }
+
+  .details { @apply m-0 grid grid-cols-[max-content_1fr] items-center gap-x-8 gap-y-2.5 text-sm; }
   .details dt { @apply text-tinta-2; }
   .details dd { @apply m-0 font-medium; }
 
-  .table-wrap { @apply overflow-x-auto rounded-superficie bg-papel shadow-sm ring-1 ring-linea; }
+  .table-wrap { @apply overflow-x-auto; }
   table { @apply w-full border-collapse text-sm; }
-  th { @apply bg-fondo/60 px-4 py-3 text-left text-xs font-semibold tracking-wide whitespace-nowrap text-tinta-2 uppercase; }
+  th { @apply border-b border-linea-fuerte px-4 py-3 text-left text-sm font-semibold whitespace-nowrap text-tinta; }
   td { @apply border-t border-linea px-4 py-3 whitespace-nowrap tabular-nums; }
-  tbody tr { @apply transition-colors hover:bg-fondo/50; }
+  tbody tr:first-child td { @apply border-t-0; }
+  tbody tr { @apply transition-colors hover:bg-fondo/70; }
+  /* Los enlaces de una tabla son identificadores: monoespaciada, sin competir con el acento. */
+  table a { @apply font-mono text-tinta underline decoration-linea-fuerte underline-offset-4 hover:text-acento; }
   td.actions { @apply table-cell space-x-1.5; }
-  td.actions button { @apply min-h-8 px-3 text-xs; }
+  td.actions button { @apply min-h-8 rounded-chip px-2.5 text-xs; }
 
-  .state { @apply inline-flex items-center rounded-full bg-fondo px-2.5 py-0.5 text-xs font-semibold text-tinta-2 ring-1 ring-linea; }
-  .state-AVAILABLE { @apply bg-ok-fondo text-ok ring-ok/20; }
-  .state-OUT_OF_SERVICE, .state.severity-CRITICAL, .state.severity-HIGH { @apply bg-error-fondo text-error ring-error/20; }
+  /* Testigos de tablero: luz + etiqueta. */
+  .state {
+    @apply inline-flex items-center rounded-chip border border-linea bg-fondo px-2 py-0.5 text-xs font-semibold text-tinta-2;
+  }
+  .state::before { @apply mr-1.5 size-1.5 shrink-0 rounded-full bg-current opacity-80 content-['']; }
+  .state-AVAILABLE, .state-COMPLETED, .state-APPROVED { @apply border-ok/30 bg-ok-fondo text-ok; }
+  .state-ON_MISSION, .state-TAKEOFF, .state-IN_PROGRESS, .state-RETURNING {
+    @apply border-vuelo/30 bg-vuelo-fondo text-vuelo;
+  }
+  .state-CHARGING, .state-IN_MAINTENANCE, .state-PAUSED, .state-REQUIRES_REPAIR, .state.severity-MEDIUM {
+    @apply border-aviso/30 bg-aviso-fondo text-aviso;
+  }
+  .state-OUT_OF_SERVICE, .state-ABORTED, .state-DECOMMISSION, .state.severity-HIGH {
+    @apply border-error/30 bg-error-fondo text-error;
+  }
+  .state-DECOMMISSIONED { @apply border-dashed border-linea-fuerte bg-transparent; }
+  /* Crítica: la única etiqueta en negativo, para que no se pierda en una tabla larga. */
+  .state.severity-CRITICAL { @apply border-error bg-error text-white; }
 
-  .toasts { @apply fixed right-4 bottom-4 z-10 flex w-[min(360px,calc(100vw-2rem))] flex-col gap-2; }
-  .toast { @apply flex flex-col gap-1.5 rounded-campo border-l-4 bg-papel p-4 text-sm shadow-lg ring-1 ring-linea; }
-  .severity-LOW { @apply border-l-tinta-2; }
-  .severity-MEDIUM { @apply border-l-aviso; }
-  .severity-HIGH { @apply border-l-orange-600; }
-  .severity-CRITICAL { @apply border-l-error; }
+  .toasts { @apply fixed right-4 bottom-4 z-10 flex w-[min(380px,calc(100vw-2rem))] flex-col gap-2; }
+  .toast {
+    @apply flex flex-col gap-1.5 rounded-superficie border border-linea border-l-4 bg-papel p-4 text-sm
+      shadow-[0_16px_40px_-16px_rgb(12_25_28/0.45)];
+  }
+  .toast strong { @apply font-semibold tracking-[-0.01em]; }
+  .toast.severity-LOW { @apply border-l-linea-fuerte; }
+  .toast.severity-MEDIUM { @apply border-l-aviso; }
+  .toast.severity-HIGH { @apply border-l-error/70; }
+  .toast.severity-CRITICAL { @apply border-l-error; }
 }
 
-/* Unlayered on purpose: Tailwind's own `.inline` utility (display: inline) would otherwise win. */
-.inline { @apply mb-5 flex flex-wrap items-end gap-3 rounded-superficie bg-papel p-4 shadow-sm ring-1 ring-linea; }
+/* Sin capa a propósito: la utilidad `.inline` de Tailwind (display: inline) ganaría si no. */
+.inline { @apply mb-5 flex flex-wrap items-end gap-3 p-4; }
+.stack > .inline { @apply mb-0; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}

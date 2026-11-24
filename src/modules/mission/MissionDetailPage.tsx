@@ -76,9 +76,9 @@ export function MissionDetailPage() {
       )}
       <NoticeView notice={notice} />
       <dl className="details">
-        <dt>Estado</dt><dd>{MISSION_STATE_LABELS[mission.state]}</dd>
+        <dt>Estado</dt><dd><span className={`state state-${mission.state}`}>{MISSION_STATE_LABELS[mission.state]}</span></dd>
         <dt>Tipo</dt><dd>{DRONE_TYPE_LABELS[mission.type as DroneType] ?? mission.type}</dd>
-        <dt>Prioridad</dt><dd>{PRIORITY_LABELS[mission.priority]}</dd>
+        <dt>Prioridad</dt><dd><span className={`state severity-${mission.priority}`}>{PRIORITY_LABELS[mission.priority]}</span></dd>
         <dt>Dron asignado</dt><dd>{mission.assignedDroneCode ?? 'Sin asignar'}</dd>
         <dt>Origen</dt><dd>{formatLocation(mission.origin)}</dd>
         <dt>Destino</dt><dd>{formatLocation(mission.destination)}</dd>
