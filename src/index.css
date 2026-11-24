@@ -85,9 +85,31 @@
       transition-colors duration-150 hover:bg-acento-hover hover:text-white hover:no-underline;
   }
 
-  /* Acceso: la cabina con la retícula de una carta de navegación. */
-  main.center {
-    @apply grid min-h-dvh place-items-center bg-cabina p-4;
+  /* Acceso a pantalla partida: la imagen a la izquierda, el formulario a la derecha. */
+  main.auth { @apply grid min-h-dvh bg-cabina lg:grid-cols-[1.15fr_1fr]; }
+
+  /*
+   * La portada apila velo + imagen + retícula de carta de navegación.
+   * Si public/login-cover.webp todavía no existe, esa capa se omite y queda la retícula.
+   */
+  .auth-cover {
+    @apply relative hidden flex-col justify-end gap-1 overflow-hidden p-10 lg:flex;
+    background-image:
+      linear-gradient(to top, rgb(12 25 28 / 0.94) 0%, rgb(12 25 28 / 0.45) 42%, rgb(12 25 28 / 0.12) 100%),
+      url('/login-cover.webp'),
+      repeating-linear-gradient(to right, rgb(255 255 255 / 0.05) 0 1px, transparent 1px 56px),
+      repeating-linear-gradient(to bottom, rgb(255 255 255 / 0.05) 0 1px, transparent 1px 56px),
+      radial-gradient(120% 90% at 50% 0%, #1b3238 0%, var(--color-cabina) 68%);
+    background-size: cover, cover, auto, auto, auto;
+    background-position: center;
+    background-repeat: no-repeat, no-repeat, repeat, repeat, no-repeat;
+  }
+
+  .auth-cover-marca { @apply m-0 font-mono text-sm tracking-[0.3em] text-papel/70 uppercase; }
+  .auth-cover-pie { @apply m-0 max-w-sm text-2xl leading-snug font-semibold text-papel; }
+
+  .auth-panel {
+    @apply grid place-items-center bg-cabina p-4;
     background-image:
       repeating-linear-gradient(to right, rgb(255 255 255 / 0.05) 0 1px, transparent 1px 56px),
       repeating-linear-gradient(to bottom, rgb(255 255 255 / 0.05) 0 1px, transparent 1px 56px),
@@ -99,7 +121,7 @@
   }
   .card { @apply flex w-full max-w-md flex-col gap-4 p-6; }
   .card.wide { @apply max-w-3xl; }
-  main.center .card { @apply gap-5 shadow-[0_24px_60px_-24px_rgb(0_0_0/0.55)]; }
+  .auth-panel .card { @apply gap-5 shadow-[0_24px_60px_-24px_rgb(0_0_0/0.55)]; }
 
   .grid { @apply grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] items-start gap-5; }
   .grid .card { @apply max-w-none; }

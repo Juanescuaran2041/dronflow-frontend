@@ -30,7 +30,12 @@ export function LoginPage() {
   }
 
   return (
-    <main className="center">
+    <main className="auth">
+      <aside className="auth-cover">
+        <p className="auth-cover-marca">Dronflow</p>
+        <p className="auth-cover-pie">Gestión inteligente de flotas de drones</p>
+      </aside>
+      <div className="auth-panel">
       <form className="card" onSubmit={handleSubmit}>
         <h1>Dronflow</h1>
         <p>Inicia sesión para continuar</p>
@@ -45,6 +50,7 @@ export function LoginPage() {
         {error && <p className="alert error" role="alert">{error}</p>}
         <button disabled={loading}>{loading ? 'Ingresando…' : 'Iniciar sesión'}</button>
       </form>
+      </div>
     </main>
   )
 }
