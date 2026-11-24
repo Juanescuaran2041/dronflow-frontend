@@ -22,7 +22,7 @@ export function FlightHistory({ droneCode }: { droneCode: string }) {
       {history && (
         <>
           <dl className="details">
-            <dt>Horas de vuelo</dt><dd>{history.flightHours}</dd>
+            <dt>Horas de vuelo</dt><dd>{history.flightHours.toFixed(1)} h</dd>
             <dt>Misiones completadas</dt><dd>{history.completedMissions}</dd>
           </dl>
           {history.incidents.length === 0 ? (
