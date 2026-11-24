@@ -37,6 +37,7 @@ export function LoginPage() {
       </aside>
       <div className="auth-panel">
       <form className="card" onSubmit={handleSubmit}>
+        <img src="/marca.webp" alt="" className="auth-marca" />
         <h1>Dronflow</h1>
         <p>Inicia sesión para continuar</p>
         <label>

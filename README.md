@@ -1,5 +1,7 @@
 # Dronflow — Frontend
 
+![Dronflow](docs/banner.webp)
+
 **Dronflow** es un sistema de gestión de flotas de drones (proyecto universitario de Diseño de Software). Permite registrar drones, controlar su estado operativo, planificar y seguir misiones, gestionar alertas y mantenimiento, y administrar los usuarios del sistema con dos roles: **administrador** (`ADMIN`) y **operador** (`OPERATOR`).
 
 Este repositorio contiene la interfaz web. El sistema completo se compone de:
@@ -45,6 +47,7 @@ Es la cuenta de administrador del sistema (HU-19), no una credencial de infraest
 ## Stack
 
 - React 19 + TypeScript
+- Tailwind CSS 4 (tokens de color, tipografía y radio en `@theme`)
 - Vite (servidor de desarrollo, build y proxy hacia la API)
 - React Router 7 (rutas y rutas protegidas)
 - `fetch` nativo para HTTP (sin librerías extra)
@@ -86,7 +89,7 @@ Otros comandos:
 src/
 ├── App.tsx                 # Definición de rutas
 ├── main.tsx                # Punto de entrada
-├── index.css               # Estilos globales (variables, modo claro/oscuro)
+├── index.css               # Estilos globales (tokens de @theme y clases de componente)
 ├── shared/                 # Código transversal, sin lógica de negocio
 │   ├── api/http.ts         # Cliente HTTP: base /api/v1, token JWT, errores
 │   ├── auth/               # Sesión, contexto de autenticación, ruta protegida
@@ -140,8 +143,8 @@ Cerrar sesión ──POST /logout (revoca el token en el servidor)──▶ se b
 - **Módulos por dominio** que reflejan los módulos del backend; `shared/` no depende de ningún módulo salvo por tipos.
 - **Tipado estricto**: los tipos TS replican los DTOs del backend; `tsc -b` corre en cada build.
 - **Errores del backend visibles**: se muestra el `message` que devuelve la API en vez de mensajes genéricos.
-- **Sin dependencias innecesarias**: `fetch` nativo, CSS plano con variables.
-- **Accesibilidad básica**: formularios con `<label>`, mensajes con `role="alert"`, modo oscuro por `prefers-color-scheme`.
+- **Sin dependencias innecesarias**: `fetch` nativo; los estilos salen de Tailwind con tokens propios, sin librería de componentes.
+- **Accesibilidad básica**: formularios con `<label>`, mensajes con `role="alert"`, animaciones apagadas con `prefers-reduced-motion`.
 - **Código en inglés**, textos de la interfaz y documentación en español.
 
 ## Convenciones de trabajo

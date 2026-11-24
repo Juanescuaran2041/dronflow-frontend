@@ -95,7 +95,7 @@
   .auth-cover {
     @apply relative hidden flex-col justify-end gap-1 overflow-hidden p-10 lg:flex;
     background-image:
-      linear-gradient(to top, rgb(12 25 28 / 0.94) 0%, rgb(12 25 28 / 0.45) 42%, rgb(12 25 28 / 0.12) 100%),
+      linear-gradient(to top, rgb(12 25 28 / 0.9) 0%, rgb(12 25 28 / 0.35) 45%, rgb(12 25 28 / 0.05) 100%),
       url('/login-cover.webp'),
       repeating-linear-gradient(to right, rgb(255 255 255 / 0.05) 0 1px, transparent 1px 56px),
       repeating-linear-gradient(to bottom, rgb(255 255 255 / 0.05) 0 1px, transparent 1px 56px),
@@ -122,6 +122,7 @@
   .card { @apply flex w-full max-w-md flex-col gap-4 p-6; }
   .card.wide { @apply max-w-3xl; }
   .auth-panel .card { @apply gap-5 shadow-[0_24px_60px_-24px_rgb(0_0_0/0.55)]; }
+  .auth-marca { @apply size-14 self-start mix-blend-multiply; }
 
   .grid { @apply grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] items-start gap-5; }
   .grid .card { @apply max-w-none; }
@@ -140,7 +141,13 @@
 
   /* Vacío y carga: un panel en espera, no un párrafo suelto. */
   .empty {
-    @apply m-0 rounded-superficie border border-dashed border-linea-fuerte/70 bg-papel/50 px-4 py-6 text-sm text-tinta-2;
+    @apply m-0 grid justify-items-center gap-3 rounded-superficie border border-dashed border-linea-fuerte/70
+      bg-papel/50 px-4 py-8 text-center text-sm text-tinta-2;
+  }
+  /* El dibujo va sobre fondo blanco: `multiply` lo recorta contra el panel sin necesitar transparencia. */
+  .empty::before {
+    @apply block size-20 bg-contain bg-center bg-no-repeat opacity-80 mix-blend-multiply content-[''];
+    background-image: url('/sin-datos.webp');
   }
 
   .actions { @apply flex flex-wrap items-center gap-2; }
